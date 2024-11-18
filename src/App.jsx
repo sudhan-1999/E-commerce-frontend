@@ -1,6 +1,14 @@
 import {Routes,Route} from 'react-router-dom';
 import Homepage from './Home';
 import Login from './Login';
+import Clothes from './Clothes';
+import Register from './Register';
+import Forgotpassword from './Forgotpassword';
+import Resetpassword from './Resetpassword';
+import Cart from './Cart';
+import Electronics from './Electronics';
+import Appliances from './Appliances';
+import Toys from './Toys';
 
 function App() {
 
@@ -9,14 +17,14 @@ function App() {
     <Routes>
       <Route path='/' element={<Homepage/>}/>//
       <Route path='/login' element={<Login/>}/>//
-      <Route path='/register' element={<register/>}/>//
-      <Route path='/forgotpassword' element={<forgotpassword/>}/>
-      <Route path='/resetpassword' element={<resetpassword/>}/>
-      <Route path='/cart' element={<cart/>}/>
-      <Route path='/clothes' element={<clothes/>}/>
-      <Route path='/electronics' element={<electronics/>}/>
-      <Route path='/appliances' element={<appliances/>}/>
-      <Route path='/toys' element={<toys/>}/>
+      <Route path='/register' element={<Register/>}/>//
+      <Route path='/forgotpassword' element={<Forgotpassword/>}/>//
+      <Route path='/resetpassword' element={<Resetpassword/>}/>//
+      <Route path='/cart' element={<Cart/>}/>//
+      <Route path='/clothes' element={<Clothes/>}/>//
+      <Route path='/electronics' element={<Electronics/>}/>//
+      <Route path='/appliances' element={<Appliances/>}/>//
+      <Route path='/toys' element={<Toys/>}/>//
       
     </Routes>
     {/*app.use("/",userrouter);//completed

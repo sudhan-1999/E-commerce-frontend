@@ -11,50 +11,54 @@ function Homepage() {
     });
   }, []);
 
-  const handleclick = () => navigate("/home");
+  const handleclick = () => navigate("/");
   const handlelogoutclick = () => navigate("/login");
   const handlecartclick = () => navigate("/cart");
- // const clickonfashion = ()=> navigate("/")
+  const clickonfashion = ()=> navigate("/clothes");
+  const clickonAccessories = ()=>navigate("/electronics");
+  const clickonToys = () => navigate("/toys");
+  const clickonAppliancess = () => navigate("/appliances");
 
   return (
     <>
      
         <div className="container" id="homeproducts">
         <div className="home">
-        <ul class="nav">
-          <li class="nav-item">
+        <ul className="nav">
+          <li className="nav-item">
             <button className="nav-link" onClick={handleclick}>
               Home
             </button>
           </li>
-          <li class="nav-item">
+          <li className="nav-item">
             <button className="nav-link" onClick={handlecartclick}>
-              <i class="fa-solid fa-cart-shopping" />
+              <i className="fa-solid fa-cart-shopping" />
             </button>
           </li>
-          <li class="nav-item">
+          <li className="nav-item">
             <button className="nav-link" onClick={handlelogoutclick}>
               Log in
             </button>
           </li>
         </ul>
+        <p className="exclusive">Exclusive Deals</p>
           <div className="row" >
             {products.map((product, _id) => {
               return (
-                <div className="col-lg-4" key={_id}>
-                  <div class="card" style={{ width: "auto", height: "auto" }}>
-                    <img
+                <div className="col-lg-4" >
+                <div className="card" id="card" style={{ width: "auto", height: "auto" }} onClick={clickonfashion}>
+                <img
                       src={product.im}
-                      class="card-img-top"
-                      alt={product.name}
-                    />
-                    <div class="card-body">
-                      <h5 class="card-title">{product.name}</h5>
-                      <p class="card-text">Price:{product.price}</p>
-                      <button class="btn btn-primary">Add to cart</button>
-                    </div>
+                      className="card-img-top"
+                      alt={product.Name}
+                      
+                    />                  <div className="card-body">
+                  <h5 className="card-title">{product.Name}</h5>
+                      <p className="card-text">Price:{product.price}</p>
+                      <button className="btn btn-primary">Add to cart</button>
                   </div>
                 </div>
+              </div>
               );
             })}
           </div>
@@ -64,34 +68,34 @@ function Homepage() {
           <div className="container" id="container">
             <div className="row">
               <div className="col-lg-4" >
-                <div class="card" id="card" style={{ width: "auto", height: "auto" }}>
-                  <img src="https://assets.ccbp.in/frontend/react-js/ecommerce/clothes-sim-jacket.png" class="card-img-top" alt="Fashion" />
-                  <div class="card-body">
-                    <p class="fashion">Fashion</p>
+                <div className="card" id="card" style={{ width: "auto", height: "auto" }} onClick={clickonfashion}>
+                  <img src="https://assets.ccbp.in/frontend/react-js/ecommerce/clothes-sim-jacket.png" className="card-img-top" alt="Fashion" />
+                  <div className="card-body">
+                    <p className="fashion"  >Fashion</p>
                   </div>
                 </div>
               </div>
               <div className="col-lg-4">
-                <div class="card" id="card" style={{ width: "auto", height: "auto" }}>
-                  <img src="https://assets.ccbp.in/frontend/react-js/ecommerce/electronics-simple-watch.png" class="card-img-top" alt="Accessories" />
-                  <div class="card-body">
-                  <p class="accessories">Accessories</p>
+                <div className="card" id="card" style={{ width: "auto", height: "auto" }} onClick={clickonAccessories}>
+                  <img src="https://assets.ccbp.in/frontend/react-js/ecommerce/electronics-simple-watch.png" className="card-img-top" alt="Accessories" />
+                  <div className="card-body">
+                  <p className="accessories" >Accessories</p>
                   </div>
                 </div>
               </div>
               <div className="col-lg-4" >
-                <div class="card" id="card" style={{ width: "auto", height: "auto" }}>
-                  <img src="https://assets.ccbp.in/frontend/react-js/ecommerce/toys-minnos.png" class="card-img-top" alt="Toys" />
-                  <div class="card-body">
-                    <p class="toys">Toys</p>
+                <div className="card" id="card" style={{ width: "auto", height: "auto" }} onClick={clickonToys}>
+                  <img src="https://assets.ccbp.in/frontend/react-js/ecommerce/toys-minnos.png" className="card-img-top" alt="Toys" />
+                  <div className="card-body">
+                    <p className="toys" >Toys</p>
                   </div>
                 </div>
               </div>
               <div className="col-lg-4" >
-                <div class="card" id="card" style={{ width: "auto", height: "auto" }}>
-                  <img src="https://assets.ccbp.in/frontend/react-js/ecommerce/appliances-singing-mike.png" class="card-img-top" alt="Appliancess" />
-                  <div class="card-body">
-                    <p class="appliancess">Appliancess</p>
+                <div className="card" id="card" style={{ width: "auto", height: "auto" }} onClick={clickonAppliancess}>
+                  <img src="https://assets.ccbp.in/frontend/react-js/ecommerce/appliances-singing-mike.png" className="card-img-top" alt="Appliancess" />
+                  <div className="card-body">
+                    <p className="appliancess" >Appliancess</p>
                   </div>
                 </div>
               </div>
