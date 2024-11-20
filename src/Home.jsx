@@ -45,7 +45,7 @@ function Homepage() {
           <div className="row" >
             {products.map((product, _id) => {
               return (
-                <div className="col-lg-4" >
+                <div className="col-lg-4" key={_id}>
                 <div className="card" id="card" style={{ width: "auto", height: "auto" }} onClick={clickonfashion}>
                 <img
                       src={product.im}

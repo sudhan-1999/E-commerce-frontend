@@ -28,3 +28,15 @@ img{
   width: 300px;
   height: 300px;
 }
+#productcard{
+  margin-top: 20px;
+}
+#input{
+  width: 50%;
+}
+#container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding:10px;
+}

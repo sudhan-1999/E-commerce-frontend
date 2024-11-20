@@ -38,7 +38,7 @@ function Toys() {
         <div className="row">
           {toys.map((toy,_id)=>{
             return(
-              <div className="col-lg-4" key={_id}>
+              <div className="col-lg-4"  id="productcard" key={_id}>
                   <div className="card" style={{ width: "auto", height: "auto" }}>
                     <img
                       src={toy.im}
