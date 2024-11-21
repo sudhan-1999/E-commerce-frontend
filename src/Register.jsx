@@ -74,22 +74,26 @@ function Register() {
           </li>
         </ul>
       </div>
-      <div className="container" id="container">
-      <div className="first" id="first">
-       <label className="Firstname" id="Firstname">First Name:</label>
-       <input type="text" className="Firstnameinput" id="Firstnameinput" value={firstname} onChange={(e)=>{setFirstname(e.target.value)}}/>
-      </div>
-      <div className="email" id="email">
-      <label className="email" id="email">Email:</label>
-      <input type="email" className="emailinput" id="emailinput" value={email} onChange={(e)=>{setEmail(e.target.value)}}/>
-      </div>
-      <div className="pass" id="pass">
-      <label className="password" id="password">Password:</label>
-      <input type="password" className="passwordinput" id="passwordinput" value={password} onChange={(e)=>{setPassword(e.target.value)}}/>
-      </div>
-      <div className="butn" id="butn">
-        <button type="submit" className="btn-primary" id="signin" onClick={handlesubmit}>Sign In</button>
-      </div>
+    <div className="forform" id="forform">
+    <form className="row g-3 needs-validation" novalidate>
+  <div className="col-md-4">
+    <label for="validationCustom01" className="form-label">Name:</label>
+    <input type="text" className="form-control" id="Name" placeholder="Name" value={firstname} onChange={(e)=>{setFirstname(e.target.value)}} required/>
+  </div>
+  <div className="col-md-4">
+    <label for="validationCustom02" className="form-label">Email:</label>
+    <input type="Email" className="form-control" id="Email" placeholder="Email" value={email} onChange={(e)=>{setEmail(e.target.value)}} required/>
+  </div>
+  <div className="col-md-4">
+    <label for="validationCustomUsername" className="form-label">Password:</label>
+    <div className="input-group has-validation">
+      <input type="Password" className="form-control" id="validationCustomUsername" placeholder="Password" aria-describedby="inputGroupPrepend"  value={password} onChange={(e)=>{setPassword(e.target.value)}}required/>
+    </div>
+  </div>
+  <div className="col-12" id="butnsubmit">
+    <button className="btn btn-primary" type="submit" onClick={handlesubmit}>Sign up</button>
+  </div>
+</form>
     </div>
     </div>
   );

@@ -31,12 +31,23 @@ img{
 #productcard{
   margin-top: 20px;
 }
-#input{
-  width: 50%;
-}
-#container{
+
+#forform{
   display: flex;
-  flex-direction: column;
+  justify-content: center;
   align-items: center;
-  padding:10px;
 }
+form{
+  max-width: 80%;
+
+}
+#butnsubmit{
+  display: flex;
+  justify-content: center;
+}
+strong{
+  color: green;
+}
+  
+  
+
