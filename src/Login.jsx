@@ -10,6 +10,7 @@ function Login() {
   const handleclick = () => navigate("/");
   const handlelregisterclick = () => navigate("/register");
   const handlecartclick = () => navigate("/cart");
+  const handlelforgotpassword=()=>navigate("/forgotpassword")
     
   const handlesubmit = async (e) => {
     e.preventDefault(); // Prevent the default form submission
@@ -74,20 +75,21 @@ function Login() {
       </div>
     <div className="forform" id="forform">
     <form className="row g-3 needs-validation" >
-  <div className="col-md-4">
+  <div className="col-md-12">
     <label for="validationCustom02" className="form-label">Email:</label>
     <input type="Email" className="form-control" id="Email" placeholder="Email" value={email} onChange={(e)=>{setEmail(e.target.value)}} required/>
   </div>
-  <div className="col-md-4">
+  <div className="col-md-12">
     <label for="validationCustomUsername" className="form-label">Password:</label>
     <div className="input-group has-validation">
       <input type="Password" className="form-control" id="validationCustomUsername" placeholder="Password" aria-describedby="inputGroupPrepend"  value={password} onChange={(e)=>{setPassword(e.target.value)}}required/>
     </div>
   </div>
   <div className="col-12" id="butnsubmit">
-    <button className="btn btn-primary" type="submit" onClick={handlesubmit}>Log in</button>
+    <button className="btn btn-primary" type="submit" style={{width:"100%"}} onClick={handlesubmit}>Log in</button>
   </div>
   <p>Don't have an account? <strong onClick={handlelregisterclick}>Register Here!</strong></p>
+  <p>Forgot password?:<strong onClick={handlelforgotpassword} style={{color:"red"}}>Click here</strong></p>
 </form>
     </div>
     </div>
