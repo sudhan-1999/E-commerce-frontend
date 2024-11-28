@@ -55,23 +55,6 @@ function Login() {
   return (
     <div className="container">
       <div className="register" id="register">
-        <ul className="nav">
-          <li className="nav-item">
-            <button className="nav-link" onClick={handleclick}>
-              Home
-            </button>
-          </li>
-          <li className="nav-item">
-            <button className="nav-link" onClick={handlecartclick}>
-              <i className="fa-solid fa-cart-shopping" />
-            </button>
-          </li>
-          <li className="nav-item">
-            <button className="nav-link" onClick={handlelregisterclick}>
-              Sign in
-            </button>
-          </li>
-        </ul>
       </div>
     <div className="forform" id="forform">
     <form className="row g-3 needs-validation" >

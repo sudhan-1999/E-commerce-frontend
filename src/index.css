@@ -48,7 +48,10 @@ form{
 strong{
   color: green;
 }
-
+.addtocart{
+  display: flex;
+  justify-content: center;
+}
   
   
 

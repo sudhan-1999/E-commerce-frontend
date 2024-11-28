@@ -1,5 +1,6 @@
 import {Routes,Route} from 'react-router-dom';
-import Homepage from './Home';
+import Layout from "./Layout";
+import Home from "./Home";
 import Login from './Login';
 import Register from './Register';
 import Forgotpassword from './Forgotpassword';
@@ -14,15 +15,17 @@ function App() {
     <>
    
     <Routes>
-      <Route path='/' element={<Homepage/>}/>
-      <Route path='/login' element={<Login/>}/>
+    <Route path="/" element={<Layout />}>
+    <Route index element={<Home />} />
+    <Route path='/login' element={<Login/>}/>
       <Route path='/register' element={<Register/>}/>
       <Route path='/forgotpassword' element={<Forgotpassword/>}/>
       <Route path='/resetpassword' element={<Resetpassword/>}/>
-      <Route path='/cart' element={<Cart/>}/>
+      <Route path='/cart/:category/:id' element={<Cart/>}/>
       <Route path='/:category' element={<Category/>}/>
       <Route path='/:category/:id' element={<Detailedpage/>}/>
-      
+      </Route>
+
     </Routes>
       
     </>
