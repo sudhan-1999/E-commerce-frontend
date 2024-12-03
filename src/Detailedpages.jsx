@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useNavigate, useParams } from "react-router-dom";
+import {  useParams } from "react-router-dom";
 
 function Detailedpage() {
   const { category, id } = useParams();
@@ -8,17 +8,7 @@ function Detailedpage() {
   const [product, setProduct] = useState(null); // Use `null` for initial state
   const [loading, setLoading] = useState(true); // Loading state
 
-  /*const handleclick = () => navigate("/");
-  const handlelogoutclick = () => {
-    localStorage.removeItem("success");
-    setLogin(false);
-    navigate("/login")};
-  const handleCartClick = () => {
-    if(login){
-    navigate("/cart");}else{
-      alert("Log in to View Your cart")
-    }
-  }*/
+  
     useEffect(() => {
       const loginvalue = localStorage.getItem("success");
       if (loginvalue) {
@@ -29,7 +19,7 @@ function Detailedpage() {
       if(login){
         const id = product._id;
         //const category="exclusive";
-       axios.post(`http://localhost:8000/cart/${category}/${id}`);
+       axios.post(`https://e-commerce-backend-27nb.onrender.com/cart/${category}/${id}`);
       }else{
         alert("Log in to add to Your cart")
       }
@@ -38,7 +28,7 @@ function Detailedpage() {
     const fetchProduct = async () => {
       try {
         setLoading(true); // Start loading
-        const response = await axios.get(`http://localhost:8000/${category}/${id}`);
+        const response = await axios.get(`https://e-commerce-backend-27nb.onrender.com/${category}/${id}`);
         setProduct(response.data); // Set the product data
       } catch (error) {
         console.error("Error fetching product:", error);
@@ -50,7 +40,7 @@ function Detailedpage() {
     if (category && id) {
       fetchProduct();
     }
-  }, [category, id]); // Dependency array ensures useEffect only runs when `category` or `id` changes
+  }, [category, id]); 
 
   if (loading) {
     return <p>Loading...</p>;
@@ -89,3 +79,4 @@ function Detailedpage() {
 }
 
 export default Detailedpage;
+

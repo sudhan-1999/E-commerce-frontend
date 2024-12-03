@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
+import axios from 'axios'
 
 function Layout() {
   const navigate = useNavigate();
   const [login, setLogin] = useState(false);
+  const [cartprd,setCartprd]=useState([]);
 
   useEffect(()=>{
     const loginvalues=localStorage.getItem("success")
@@ -11,6 +13,17 @@ function Layout() {
       setLogin(true);
     }
   },[])
+  useEffect(() => {
+    const fetchCartItems = async () => {
+      try {
+        const response = await axios.get("https://e-commerce-backend-27nb.onrender.com/cart");
+        setCartprd(response.data);
+      } catch (err) {
+        console.error("Error fetching cart products:", err);
+      }
+    };
+    fetchCartItems();
+  }, [cartprd]);
 
   const handleclick = () => navigate("/");
   const handlelogoutclick = () => {
@@ -31,7 +44,6 @@ function Layout() {
 
   return (
     <>
-      {/* Navbar Section */}
       <ul className="nav">
         <li className="nav-item">
           <button className="nav-link" onClick={handleclick}>
@@ -45,7 +57,7 @@ function Layout() {
           >
             <i className="fa-solid fa-cart-shopping" />
             <span className="position-absolute top-10 start-100 translate-middle badge rounded-pill bg-danger">
-              0<span className="visually-hidden">cart items</span>
+             {cartprd.length}<span className="visually-hidden">cart items</span>
             </span>
           </button>
         </li>

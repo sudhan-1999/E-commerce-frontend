@@ -9,21 +9,17 @@ function Register() {
   const [email,setEmail]=useState("");
   const [password,setPassword]=useState("");
 
-  const handleclick = () => navigate("/");
   const handlelogoutclick = () => navigate("/login");
-  const handlecartclick = () => navigate("/cart");
     
   const handlesubmit = async (e) => {
-    e.preventDefault(); // Prevent the default form submission
+    e.preventDefault(); 
   
-    // Validation for empty or invalid values
     if (!firstname.trim() || !email.trim() || !password.trim()) {
       console.error("Error: All fields are required.");
-      alert("Please fill out all the fields."); // Show an alert to the user
+      alert("Please fill out all the fields.");
       return;
     }
   
-    // Validate email format using a regex
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
       console.error("Error: Invalid email format.");
@@ -32,7 +28,7 @@ function Register() {
     }
   
     try {
-      const response = await axios.post("http://localhost:8000/register", {
+      const response = await axios.post("https://e-commerce-backend-27nb.onrender.com/register", {
         Name: firstname,
         Email: email,
         Password: password,
@@ -41,7 +37,6 @@ function Register() {
   
       console.log("Registration successful:", response.data);
   
-      // Clear the input fields only if the request is successful
       if (response) {
         setFirstname("");
         setEmail("");

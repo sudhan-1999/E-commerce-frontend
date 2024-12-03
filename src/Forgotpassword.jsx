@@ -8,17 +8,12 @@ function Forgotpassword() {
 
   const [email,setEmail]=useState("");
 
-
-  const handleclick = () => navigate("/");
-  const handlelogintclick = () => navigate("/login");
-  const handlecartclick = () => navigate("/cart");
-
   const handlesubmit= async (e)=>{
     e.preventDefault();
 
     if(!email.trim){
       console.error("Error: All fields are required.");
-      alert("Please fill out all the fields."); // Show an alert to the user
+      alert("Please fill out all the fields.");
       return;
     }
 
@@ -30,7 +25,7 @@ function Forgotpassword() {
     }
 
     try{
-      const response= await axios.post("http://localhost:8000/forgotpassword",{Email:email});
+      const response= await axios.post("https://e-commerce-backend-27nb.onrender.com/forgotpassword",{Email:email});
       console.log(response);
        if(response){
         localStorage.setItem("Email",{email})

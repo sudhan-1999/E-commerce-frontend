@@ -10,13 +10,11 @@ function Resetpassword() {
   const [code,setCode]=useState("");
 
 
-  const handleclick = () => navigate("/");
-  const handlelogintclick = () => navigate("/login");
-  const handlecartclick = () => navigate("/cart");
+
   const handlesubmit=(e)=>{
     e.preventDefault();
     const Email=localStorage.getItem("Email");
-    const response=axios.post("http://localhost:8000/resetpassword",{
+    const response=axios.post("https://e-commerce-backend-27nb.onrender.com/resetpassword",{
       Email:Email,
       code:code,
       password:newpass

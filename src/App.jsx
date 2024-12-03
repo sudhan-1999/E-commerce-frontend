@@ -21,7 +21,7 @@ function App() {
       <Route path='/register' element={<Register/>}/>
       <Route path='/forgotpassword' element={<Forgotpassword/>}/>
       <Route path='/resetpassword' element={<Resetpassword/>}/>
-      <Route path='/cart/:category/:id' element={<Cart/>}/>
+      <Route path='/cart' element={<Cart/>}/>
       <Route path='/:category' element={<Category/>}/>
       <Route path='/:category/:id' element={<Detailedpage/>}/>
       </Route>

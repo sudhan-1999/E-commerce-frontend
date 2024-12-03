@@ -10,7 +10,7 @@ function CategoryPage() {
   useEffect(() => {
     // Fetch items based on the category
     axios
-      .get(`http://localhost:8000/${category}`)
+      .get(`https://e-commerce-backend-27nb.onrender.com/${category}`)
       .then((response) => setProducts(response.data))
       .catch((error) => console.error("Error fetching items:", error));
   }, [category]); // Re-run the effect when the category changes

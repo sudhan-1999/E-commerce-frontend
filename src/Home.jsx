@@ -7,7 +7,7 @@ function Homepage() {
   const [products, setProducts] = useState([]);
   const [login,setLogin]=useState(false);
   useEffect(() => {
-    axios.get("http://localhost:8000/").then((response) => {
+    axios.get("https://e-commerce-backend-27nb.onrender.com/").then((response) => {
       setProducts(response.data);
     });
   }, []);
@@ -22,7 +22,7 @@ function Homepage() {
     if(login){
       const id = product._id;
       const category="exclusive";
-     axios.post(`http://localhost:8000/cart/${category}/${id}`);
+     axios.post(`https://e-commerce-backend-27nb.onrender.com/cart/${category}/${id}`);
     }else{
       alert("Log in to add to Your cart")
     }

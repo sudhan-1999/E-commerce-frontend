@@ -7,21 +7,16 @@ function Login() {
   const [email,setEmail]=useState("");
   const [password,setPassword]=useState("");
 
-  const handleclick = () => navigate("/");
   const handlelregisterclick = () => navigate("/register");
-  const handlecartclick = () => navigate("/cart");
   const handlelforgotpassword=()=>navigate("/forgotpassword")
     
   const handlesubmit = async (e) => {
-    e.preventDefault(); // Prevent the default form submission
-  
-    // Validation for empty or invalid values
+    e.preventDefault(); 
     if (!email.trim() || !password.trim()) {
-      alert("Please fill out all the fields."); // Show an alert to the user
+      alert("Please fill out all the fields."); 
       return;
     }
   
-    // Validate email format using a regex
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
       alert("Please enter a valid email address.");
@@ -29,7 +24,7 @@ function Login() {
     }
   
     try {
-      const response = await axios.post("http://localhost:8000/login", {
+      const response = await axios.post("https://e-commerce-backend-27nb.onrender.com/login", {
         Email: email,
         Password: password
       });
@@ -37,10 +32,8 @@ function Login() {
 
   
   
-      // Clear the input fields only if the request is successful
       if (response) {
         console.log(response.data);
-        //need to change after jwt integtration
         const values = JSON.stringify(response.data.success);
         localStorage.setItem("success", values);
         setEmail("");
