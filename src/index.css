@@ -52,6 +52,16 @@ strong{
   display: flex;
   justify-content: center;
 }
-  
+.row{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+ } 
+ #cartproducts{
+  gap: 10px;
+ }
+ #cartbutn{
+  margin: 10px;
+ }
   
 
