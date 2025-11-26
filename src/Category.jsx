@@ -3,41 +3,59 @@ import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 
 function CategoryPage() {
-  const { category } = useParams(); // Get the category dynamically from the URL
+  const { category } = useParams();
   const navigate = useNavigate();
+
   const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Fetch items based on the category
+    setLoading(true);
+
     axios
       .get(`https://e-commerce-backend-27nb.onrender.com/${category}`)
       .then((response) => setProducts(response.data))
-      .catch((error) => console.error("Error fetching items:", error));
-  }, [category]); // Re-run the effect when the category changes
+      .catch((error) => console.error("Error fetching items:", error))
+      .finally(() => setLoading(false));
+  }, [category]);
 
   return (
-    <div className="container" id="homeproducts">
-      <div className="row">
-        {products.map((product) => (
-          <div
-            className="col-lg-4"
-            key={product._id}
-            onClick={() => navigate(`/${category}/${product._id}`)} // Navigate with category and item ID
-          >
-            <div className="card" style={{ width: "auto", height: "auto" }}>
+    <div className="category-wrapper homepage-container">
+
+      {/* Category title */}
+      <h2 className="section-title text-capitalize">
+        {category} Collection
+      </h2>
+
+      {/* Spinner Loader (Bootstrap style) */}
+      {loading ? (
+        <div className="spinner-wrapper">
+          <div className="spinner"></div>
+        </div>
+      ) : products.length === 0 ? (
+        <div className="notfound">No products available</div>
+      ) : (
+        <div className="products-grid">
+          {products.map((product) => (
+            <div
+              key={product._id}
+              className="product-card"
+              onClick={() => navigate(`/${category}/${product._id}`)}
+            >
               <img
                 src={product.im}
-                className="card-img-top"
                 alt={product.name}
+                className="product-img"
               />
-              <div className="card-body">
+
+              <div className="product-info">
                 <h5 className="card-title">{product.name}</h5>
-                <p className="card-text">Price: {product.price}/-</p>
+                <p className="price">₹{product.price}</p>
               </div>
             </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }

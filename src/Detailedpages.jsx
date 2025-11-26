@@ -1,131 +1,99 @@
-/*import React, { useEffect, useState } from "react";
-import axios from "axios";
-import { useParams } from "react-router-dom";
-
-function Detailedpage() {
-  const { category, id } = useParams();
-  const [login, setLogin] = useState(localStorage.getItem("success") ? true : false);
-  const [product, setProduct] = useState(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchProduct = async () => {
-      try {
-        const response = await axios.get(`https://e-commerce-backend-27nb.onrender.com/${category}/${id}`);
-        setProduct(response.data);
-      } catch (error) {
-        console.error("Error fetching product:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    if (category && id) {
-      fetchProduct();
-    }
-  }, [category, id]);
-
-  const handleAddToCart = async () => {
-    if (!login) {
-      alert("Log in to add to your cart");
-      return;
-    }
-    try {
-      await axios.post(`https://e-commerce-backend-27nb.onrender.com/cart/${category}/${id}`);
-      alert("Added to cart successfully!");
-    } catch (error) {
-      console.error("Error adding to cart:", error);
-    }
-  };
-
-  if (loading) return <p>Loading...</p>;
-  if (!product) return <p>Product not found</p>;
-
-  return (
-    <div className="container">
-      <div className="row">
-        <div className="col-lg-4">
-          <div className="card" style={{ width: "auto", height: "auto" }}>
-            <img src={product.im} className="card-img-top" alt={product.name} />
-            <div className="card-body">
-              <h5 className="card-title">{product.name}</h5>
-              <p className="card-text">Price: {product.price}/-</p>
-              <button className="btn btn-primary" onClick={handleAddToCart}>
-                Add to Cart
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-export default Detailedpage;
-*/
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 
 function Detailedpage() {
   const { category, id } = useParams();
-  const [login, setLogin] = useState(localStorage.getItem("success") ? true : false);
-  const [product, setProduct] = useState(JSON.parse(localStorage.getItem(`product-${id}`)) || null);
-  const [loading, setLoading] = useState(!product); // Load instantly if cached
+
+  const [login] = useState(localStorage.getItem("success") ? true : false);
+
+  const [product, setProduct] = useState(
+    JSON.parse(localStorage.getItem(`product-${id}`)) || null
+  );
+
+  const [loading, setLoading] = useState(!product);
 
   useEffect(() => {
-    const fetchProduct = async () => {
+    async function fetchProduct() {
       try {
-        const response = await axios.get(`https://e-commerce-backend-27nb.onrender.com/${category}/${id}`);
+        const response = await axios.get(
+          `https://e-commerce-backend-27nb.onrender.com/${category}/${id}`
+        );
+
         setProduct(response.data);
-        localStorage.setItem(`product-${id}`, JSON.stringify(response.data)); // Cache it
-      } catch (error) {
-        console.error("Error fetching product:", error);
+        localStorage.setItem(`product-${id}`, JSON.stringify(response.data));
+      } catch (err) {
+        console.error("Error fetching product:", err);
       } finally {
         setLoading(false);
       }
-    };
-
-    if (!product) {
-      fetchProduct(); // Fetch only if not cached
     }
+
+    if (!product) fetchProduct();
   }, [category, id]);
 
   const handleAddToCart = async () => {
-    if (!login) {
-      alert("Log in to add to your cart");
-      return;
-    }
+    if (!login) return alert("Log in to add to your cart");
+
     try {
-      await axios.post(`https://e-commerce-backend-27nb.onrender.com/cart/${category}/${id}`);
+      await axios.post(
+        `https://e-commerce-backend-27nb.onrender.com/cart/${category}/${id}`
+      );
       alert("Added to cart successfully!");
-    } catch (error) {
-      console.error("Error adding to cart:", error);
+    } catch (err) {
+      console.error("Error adding to cart:", err);
     }
   };
 
-  if (loading) return <p>Loading...</p>;
-  if (!product) return <p>Product not found</p>;
+  // Loading UI
+  if (loading)
+    return (
+      <div className="spinner-wrapper">
+        <div className="spinner"></div>
+      </div>
+    );
+
+  if (!product) return <div className="notfound">Product not found</div>;
 
   return (
-    <div className="container">
-      <div className="row">
-        <div className="col-lg-4">
-          <div className="card">
-            <img src={product.im} className="card-img-top" alt={product.name} />
-            <div className="card-body">
-              <h5 className="card-title">{product.name}</h5>
-              <p className="card-text">Price: {product.price}/-</p>
-              <button className="btn btn-primary" onClick={handleAddToCart}>
-                Add to Cart
-              </button>
-            </div>
-          </div>
+    <div className="detailed-wrapper">
+      <div className="detail-card">
+
+        {/* LEFT: Product Image */}
+        <div className="detail-image-box">
+          <img src={product.im} alt={product.name} className="detail-img" />
         </div>
+
+        {/* RIGHT: Product Info */}
+        <div className="detail-info">
+          <h2 className="detail-title">{product.name}</h2>
+
+          <p className="detail-brand">Brand: <span>{product.brand}</span></p>
+
+          <div className="detail-rating">
+            ⭐ {product.rating} / 5
+            <span className="detail-reviews">({product.reviews} reviews)</span>
+          </div>
+
+          <p className="detail-price">{product.price}</p>
+
+          <p className="detail-stock">
+            Availability:{" "}
+            <span className={product.availability === "In Stock" ? "in-stock" : "out-stock"}>
+              {product.availability}
+            </span>
+          </p>
+
+          <p className="detail-desc">{product.description}</p>
+
+          <button className="detail-btn" onClick={handleAddToCart}>
+            Add to Cart
+          </button>
+        </div>
+
       </div>
     </div>
   );
 }
 
 export default Detailedpage;
-

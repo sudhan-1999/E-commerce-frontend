@@ -4,104 +4,94 @@ import axios from "axios";
 
 function Homepage() {
   const navigate = useNavigate();
+
   const [products, setProducts] = useState([]);
-  const [login,setLogin]=useState(false);
+  const [login, setLogin] = useState(false);
+
+  // GET PRODUCTS
   useEffect(() => {
-    axios.get("https://e-commerce-backend-27nb.onrender.com/").then((response) => {
-      setProducts(response.data);
-    });
+    axios
+      .get("https://e-commerce-backend-27nb.onrender.com/")
+      .then((res) => setProducts(res.data));
   }, []);
+
+  // LOGIN CHECK
   useEffect(() => {
-    const loginvalue = localStorage.getItem("success");
-    if (loginvalue) {
-      setLogin(true);
-    }
+    if (localStorage.getItem("success")) setLogin(true);
   }, []);
-  
-  const handleaddtocart=(product)=>{
-    if(login){
-      const id = product._id;
-      const category="exclusive";
-     axios.post(`https://e-commerce-backend-27nb.onrender.com/cart/${category}/${id}`);
-    }else{
-      alert("Log in to add to Your cart")
+
+  const handleAddToCart = (product) => {
+    if (!login) {
+      alert("Login to add items to your cart");
+      return;
     }
-     }
-  const clickonfashion = ()=> navigate("/clothes");
-  const clickonAccessories = ()=>navigate("/electronics");
-  const clickonToys = () => navigate("/toys");
-  const clickonAppliancess = () => navigate("/appliances");
+
+    axios.post(
+      `https://e-commerce-backend-27nb.onrender.com/cart/exclusive/${product._id}`
+    );
+  };
 
   return (
     <>
-     
-       <div className="container" id="homeproducts">
-        <div className="home">
-        <p className="exclusive">Exclusive Deals</p>
-          <div className="row" >
-            {products.map((product) => {
-              return (
-                <div className="col-lg-4" key={product._id}>
-                <div className="card" id="card" style={{ width: "auto", height: "auto" }} >
-                <img
-                      src={product.im}
-                      className="card-img-top"
-                      alt={product.Name}
-                      
-                    />                  <div className="card-body">
-                  <h5 className="card-title">{product.Name}</h5>
-                      <p className="card-text">Price:{product.price}</p>
-                      <button className="btn btn-primary" onClick={()=>handleaddtocart(product)}>Add to cart</button>
-                  </div>
-                </div>
-              </div>
-              );
-            })}
-          </div>
+      <div className="homepage-container">
+
+        {/* ---------- HERO SECTION ---------- */}
+        <div className="hero-section">
+          <h1>Exclusive Deals</h1>
+          <p>Top picks curated just for you</p>
         </div>
-        <div className="divcategory">
-          <p className="categories">Categories</p>
-          <div className="container" id="container">
-            <div className="row">
-              <div className="col-lg-4" >
-                <div className="card" id="card" style={{ width: "auto", height: "auto" }} onClick={clickonfashion}>
-                  <img src="https://assets.ccbp.in/frontend/react-js/ecommerce/clothes-sim-jacket.png" className="card-img-top" alt="Fashion" />
-                  <div className="card-body">
-                    <p className="fashion"  >Fashion</p>
-                  </div>
-                </div>
-              </div>
-              <div className="col-lg-4">
-                <div className="card" id="card" style={{ width: "auto", height: "auto" }} onClick={clickonAccessories}>
-                  <img src="https://assets.ccbp.in/frontend/react-js/ecommerce/electronics-simple-watch.png" className="card-img-top" alt="Accessories" />
-                  <div className="card-body">
-                  <p className="accessories" >Accessories</p>
-                  </div>
-                </div>
-              </div>
-              <div className="col-lg-4" >
-                <div className="card" id="card" style={{ width: "auto", height: "auto" }} onClick={clickonToys}>
-                  <img src="https://assets.ccbp.in/frontend/react-js/ecommerce/toys-minnos.png" className="card-img-top" alt="Toys" />
-                  <div className="card-body">
-                    <p className="toys" >Toys</p>
-                  </div>
-                </div>
-              </div>
-              <div className="col-lg-4" >
-                <div className="card" id="card" style={{ width: "auto", height: "auto" }} onClick={clickonAppliancess}>
-                  <img src="https://assets.ccbp.in/frontend/react-js/ecommerce/appliances-singing-mike.png" className="card-img-top" alt="Appliancess" />
-                  <div className="card-body">
-                    <p className="appliancess" >Appliancess</p>
-                  </div>
-                </div>
+
+        {/* ---------- PRODUCTS SECTION ---------- */}
+        <div className="section-title">Featured Products</div>
+
+        <div className="products-grid">
+          {products.map((product) => (
+            <div className="product-card" key={product._id}>
+              <img src={product.im} alt={product.Name} className="product-img" />
+
+              <div className="product-info">
+                <h5>{product.Name}</h5>
+                <p className="price">₹{product.price}</p>
+
+                <button
+                  className="add-btn"
+                  onClick={() => handleAddToCart(product)}
+                >
+                  Add to Cart
+                </button>
               </div>
             </div>
+          ))}
+        </div>
+
+        {/* ---------- CATEGORY SECTION ---------- */}
+        <div className="section-title">Shop by Category</div>
+
+        <div className="category-grid">
+          <div className="category-card" onClick={() => navigate("/clothes")}>
+            <img src="https://assets.ccbp.in/frontend/react-js/ecommerce/clothes-sim-jacket.png" alt="Fashion" />
+            <p>Fashion</p>
+          </div>
+
+          <div className="category-card" onClick={() => navigate("/electronics")}>
+            <img src="https://assets.ccbp.in/frontend/react-js/ecommerce/electronics-simple-watch.png" alt="Accessories" />
+            <p>Accessories</p>
+          </div>
+
+          <div className="category-card" onClick={() => navigate("/toys")}>
+            <img src="https://assets.ccbp.in/frontend/react-js/ecommerce/toys-minnos.png" alt="Toys" />
+            <p>Toys</p>
+          </div>
+
+          <div className="category-card" onClick={() => navigate("/appliances")}>
+            <img src="https://assets.ccbp.in/frontend/react-js/ecommerce/appliances-singing-mike.png" alt="Appliances" />
+            <p>Appliances</p>
           </div>
         </div>
+
       </div>
     </>
   );
 }
-
 
 export default Homepage;

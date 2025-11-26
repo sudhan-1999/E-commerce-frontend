@@ -1,75 +1,103 @@
-import React, {  useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from 'axios'
+import axios from "axios";
+
 function Login() {
   const navigate = useNavigate();
 
-  const [email,setEmail]=useState("");
-  const [password,setPassword]=useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-  const handlelregisterclick = () => navigate("/register");
-  const handlelforgotpassword=()=>navigate("/forgotpassword")
-    
-  const handlesubmit = async (e) => {
-    e.preventDefault(); 
+  const handleRegisterClick = () => navigate("/register");
+  const handleForgotPassword = () => navigate("/forgotpassword");
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
     if (!email.trim() || !password.trim()) {
-      alert("Please fill out all the fields."); 
+      alert("Please fill out all fields.");
       return;
     }
-  
+
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
-      alert("Please enter a valid email address.");
+      alert("Enter a valid email.");
       return;
     }
-  
-    try {
-      const response = await axios.post("https://e-commerce-backend-27nb.onrender.com/login", {
-        Email: email,
-        Password: password
-      });
-      navigate("/");
 
-  
-  
+    try {
+      const response = await axios.post(
+        "https://e-commerce-backend-27nb.onrender.com/login",
+        {
+          Email: email,
+          Password: password,
+        }
+      );
+
       if (response) {
-        console.log(response.data);
-        const values = JSON.stringify(response.data.success);
-        localStorage.setItem("success", values);
+        localStorage.setItem("success", JSON.stringify(response.data.success));
         setEmail("");
         setPassword("");
+        navigate("/");
       }
     } catch (error) {
-      console.error("Error during registration:", error);
-      alert("There was an error during Login. Please try again.");
+      console.error("Login error:", error);
+      alert("Login failed. Please try again.");
     }
   };
-  
+
   return (
-    <div className="container">
-      <div className="register" id="register">
+    <div className="login-page-container">
+      <div className="login-card">
+        <h2 className="login-title">Welcome Back</h2>
+        <p className="login-subtitle">Login to continue shopping</p>
+
+        <form className="login-form" onSubmit={handleSubmit}>
+          <div className="form-group">
+            <label>Email</label>
+            <input
+              type="email"
+              className="form-control login-input"
+              placeholder="Enter your email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </div>
+
+          <div className="form-group mt-3">
+            <label>Password</label>
+            <input
+              type="password"
+              className="form-control login-input"
+              placeholder="Enter your password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
+
+          <button className="btn btn-primary login-btn" type="submit">
+            Log In
+          </button>
+
+          <p className="login-text mt-2">
+            Forgot your password?{" "}
+            <span className="login-link" onClick={handleForgotPassword}>
+              Click here
+            </span>
+          </p>
+
+          <p className="login-text">
+            Don’t have an account?{" "}
+            <span className="login-link" onClick={handleRegisterClick}>
+              Register Now
+            </span>
+          </p>
+        </form>
       </div>
-    <div className="forform" id="forform">
-    <form className="row g-3 needs-validation" >
-  <div className="col-md-12">
-    <label for="validationCustom02" className="form-label">Email:</label>
-    <input type="Email" className="form-control" id="Email" placeholder="Email" value={email} onChange={(e)=>{setEmail(e.target.value)}} required/>
-  </div>
-  <div className="col-md-12">
-    <label for="validationCustomUsername" className="form-label">Password:</label>
-    <div className="input-group has-validation">
-      <input type="Password" className="form-control" id="validationCustomUsername" placeholder="Password" aria-describedby="inputGroupPrepend"  value={password} onChange={(e)=>{setPassword(e.target.value)}}required/>
-    </div>
-  </div>
-  <div className="col-12" id="butnsubmit">
-    <button className="btn btn-primary" type="submit" style={{width:"100%"}} onClick={handlesubmit}>Log in</button>
-  </div>
-  <p>Don't have an account? <strong onClick={handlelregisterclick}>Register Here!</strong></p>
-  <p>Forgot password?:<strong onClick={handlelforgotpassword} style={{color:"red"}}>Click here</strong></p>
-</form>
-    </div>
     </div>
   );
 }
 
-export default Login
+export default Login;
